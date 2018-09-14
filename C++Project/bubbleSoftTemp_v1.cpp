@@ -18,26 +18,32 @@ int main()
 {
 	int temp[5];
 	int length;
-	cout << "请输入你的数据数目喵~.";
+	cout << "请输入你的数据数目喵~." << endl;
 	cin >> length;
-	//cin.get();
-	cout << "请输入你的数据们喵~"<<endl;
-	if (length > 5) {
-		cout << "老师嗦了最多数据只能有5个喵！" << endl;
+	while (true)
+	{
 		//cin.get();
+		if (length > 5) {
+			cout << "------老师嗦了最多数据只能有5个喵！------" << endl;
+			cout << "PLZ重新input一下" << endl;
+			cin >> length;
+			continue;
+			//cin.get();
+		}
+		cout << "请输入你的数据们喵~" << endl;
+		for (int i = 0;i < 5;i++)
+		{
+			cin >> temp[i];
+		}
+		cin.get();
+		bubble_Soft(temp, length);
+		cout << "------下面就是你需要的结果喵~------" << endl;
+		for (int i = 0;i < 5;i++)
+		{
+			cout << temp[i]<<"<。o ";
+		}
+		cin.get();
 		return 0;
+
 	}
-	for (int i = 0;i < 5;i++)
-	{
-		cin >> temp[i];
-	}
-	//cin.get();
-	bubble_Soft(temp, length);
-	cout << "------下面就是你需要的结果喵~------" << endl;
-	for (int i = 0;i <5 ;i++)
-	{
-		cout << temp[i]<<endl;
-	}
-	//cin.get();
-	return 0;
 }
