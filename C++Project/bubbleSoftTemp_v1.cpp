@@ -3,14 +3,21 @@ using namespace std;
 void bubble_Soft(int *temp, int length)
 {
 	int i, j;
+	bool exchange;
 	for(i=0;i<length-1;i++)
 		for (j = 0;j < length - 1 - i;j++)
 		{
+			exchange = false; //ÓÅ»¯
 			if (temp[j] > temp[j + 1])
 			{
 				int  swap_min = temp[j+1];
 				temp[j + 1] = temp[j];
 				temp[j] = swap_min;
+				exchange = true;
+			}
+			if (exchange = false)
+			{
+				return;
 			}
 		}
 }
