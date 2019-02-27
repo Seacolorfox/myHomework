@@ -7,6 +7,6 @@ for(i=1;i<5;i++)    /*三重循环*/
 		for(k=1;k<5;k++)
 		{
 		If（i!=k&&i!=j&&i!=k）/*确保i，j，k各不相同*/
-		printf(“%d,%d,%d\n”,i,j,k};
+		printf(“%d,%d,%d\n”,i,j,k）;
 		}
 }

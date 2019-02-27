@@ -2,19 +2,19 @@
 #include<ctype.h>
 #include<string.h>
 #include<Windows.h>
-const 	char keyword[28][20] = { "int","do","else","main","if","while","break","continue","for","return",
+const char keyword[28][20] = { "int","do","else","main","if","while","break","continue","for","return",
 ",",";",":","(",")","[","]","{","}","+","-","*","/","=","<",">","<=",">=" };
 
 typedef struct Word
 {
 	int num;//词所属类型
-	char w[20];//词
+	char word_store[20];//词
 }Word;
 
 void syntaxAnalysis(FILE *fileReadp, char check)
 {
-	char word_temp[20] = "";
-	int i = 0, j = 0, k = 0, key = 0, chioce;
+	char str_word[20] = "";
+	int i = 0, j = 0, k = 0, key = 0;
 	Word word[100];
 	/*
 	int num_i = 0;
@@ -62,16 +62,16 @@ void syntaxAnalysis(FILE *fileReadp, char check)
 		if (isalnum(check)!=0) //ctype.h头文件中的自带函数
 		{
 
-			word_temp[key++] = check;//连续几个字母的连成单词
-			word_temp[key] = '\0';
+			str_word[key++] = check;//连续几个字母的连成单词
+			str_word[key] = '\0';
 			continue;
 		}
 		else
 		{
-			if (strcmp(word_temp, "") != 0)
+			if (strcmp(str_word, "") != 0)
 			{
-				strcpy(word[i].w, word_temp);//将单词拷贝到结构数组中
-				strcpy(word_temp, "");
+				strcpy(word[i].word_store, str_word);//将单词拷贝到结构数组中
+				strcpy(str_word, "");
 				key = 0;//回到临时数组的开始位置
 				i++;//结构数组的下标加1
 
@@ -82,10 +82,10 @@ void syntaxAnalysis(FILE *fileReadp, char check)
 			}
 			else
 			{
-				word_temp[0] = check;
-				word_temp[1] = '\0';//字符串结束符
-				strcpy(word[i].w, word_temp);//将非字母数字符号拷贝到结构数组中
-				strcpy(word_temp, "");
+				str_word[0] = check;
+				str_word[1] = '\0';//字符串结束符
+				strcpy(word[i].word_store, str_word);//将非字母数字符号拷贝到结构数组中
+				strcpy(str_word, "");
 				key = 0;//回到临时数组的开始位置
 				i++;
 			}
@@ -94,7 +94,7 @@ void syntaxAnalysis(FILE *fileReadp, char check)
 		{
 			for (k = 0;k < 28;k++)
 			{
-				if ((strcmp(word[j].w, keyword[k])) == 0)
+				if ((strcmp(word[j].word_store, keyword[k])) == 0)
 				{
 					if (k >= 0 && k < 10)
 						word[j].num = 1;//保留字
@@ -102,7 +102,7 @@ void syntaxAnalysis(FILE *fileReadp, char check)
 						word[j].num = 5;//分隔符
 					else if (k >= 19 && k < 28)
 						word[j].num = 4;//运算符
-					else if (word[j].w[0] >= '0'&&word[j].w[0] <= '9')
+					else if (word[j].word_store[0] >= '0'&&word[j].word_store[0] <= '9')
 						word[j].num = 3;//数字
 					break;
 				}
@@ -110,9 +110,9 @@ void syntaxAnalysis(FILE *fileReadp, char check)
 					word[j].num = 2;//变量
 			}
 		}
-		for (j = 0;j < i;j++)//按格式要求打印输出
+		for (j = 0;j < i;j++)//打印输出
 		{
-			printf("(%s,%d)\n", word[j].w, word[j].num);
+			printf("(%s,%d)\n", word[j].word_store, word[j].num);
 		}
 	}
 }
@@ -122,7 +122,7 @@ int main()
 
 	char check=0;
 
-	fileReadp = fopen("syntaxAnalysis_input.c", "r");
+	fileReadp = fopen("syntaxAnalysis_input.c", "r");//扫描代码存储于syntaxAnalysis_input.c中
 	syntaxAnalysis(fileReadp, check);
 
 	system("pause");
